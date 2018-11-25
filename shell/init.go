@@ -2,6 +2,7 @@ package shell
 
 import (
 	"bytes"
+	"github.com/getantibody/antibody/compatible"
 	"os"
 	"text/template"
 )
@@ -30,6 +31,7 @@ func Init() (string, error) {
 	if err != nil {
 		return "", err
 	}
+	executable = compatible.PathFix(executable)
 	var template = template.Must(template.New("init").Parse(tmpl))
 	var out bytes.Buffer
 	err = template.Execute(&out, executable)

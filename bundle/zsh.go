@@ -2,6 +2,7 @@ package bundle
 
 import (
 	"fmt"
+	"github.com/getantibody/antibody/compatible"
 	"os"
 	"path/filepath"
 	"strings"
@@ -24,7 +25,7 @@ func (bundle zshBundle) Get() (result string, err error) {
 	// it is a file, not a folder, so just return it
 	if info.Mode().IsRegular() {
 		// XXX: should we add the parent folder to fpath too?
-		return "source " + bundle.Project.Path(), nil
+		return "source " + compatible.PathFix(bundle.Project.Path()), nil
 	}
 	for _, glob := range []string{"*.plugin.zsh", "*.zsh", "*.sh", "*.zsh-theme"} {
 		files, err := filepath.Glob(filepath.Join(bundle.Project.Path(), glob))
@@ -36,11 +37,14 @@ func (bundle zshBundle) Get() (result string, err error) {
 		}
 		var lines []string
 		for _, file := range files {
+			file  = compatible.PathFix(file)
 			lines = append(lines, "source "+file)
 		}
-		lines = append(lines, fmt.Sprintf("fpath+=( %s )", bundle.Project.Path()))
+		lines = append(lines, fmt.Sprintf("fpath+=( %s )", compatible.PathFix(bundle.Project.Path())))
+		//fmt.Printf("debug result: %#v\n", lines)
 		return strings.Join(lines, "\n"), err
 	}
 
+	//fmt.Printf("debug result: %#v\n", result)
 	return result, nil
 }

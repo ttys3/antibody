@@ -72,11 +72,13 @@ func NewGit(cwd, line string) Project {
 	case strings.HasPrefix(repo, "git@github.com:"):
 		url = repo
 	}
-	folder := filepath.Join(cwd, folder.FromURL(url))
+	//variable folder collides with package name folder
+	gitFolder := filepath.Join(cwd, folder.FromURL(url))
+
 	return gitProject{
 		Version: version,
 		URL:     url,
-		folder:  folder,
+		folder:  gitFolder,
 		inner:   inner,
 	}
 }
@@ -100,6 +102,7 @@ func (g gitProject) Download() error {
 		)
 		cmd.Env = gitCmdEnv
 
+		//log.Printf("debug git params: %#v\n", cmd.Args)
 		if bts, err := cmd.CombinedOutput(); err != nil {
 			log.Println("git clone failed for", g.URL, string(bts))
 			return err
