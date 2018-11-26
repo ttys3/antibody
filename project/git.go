@@ -69,6 +69,8 @@ func NewGit(cwd, line string) Project {
 		fallthrough
 	case strings.HasPrefix(repo, "git@gitlab.com:"):
 		fallthrough
+	case strings.HasPrefix(repo, "git@bitbucket.org:"):
+		fallthrough
 	case strings.HasPrefix(repo, "git@github.com:"):
 		url = repo
 	}
