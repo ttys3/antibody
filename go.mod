@@ -7,8 +7,7 @@ require (
 	github.com/caarlos0/gohome v0.0.0-20181121153623-75f08ebc60b1
 	github.com/getantibody/folder v1.0.0
 	github.com/stretchr/testify v1.2.2
-	golang.org/x/crypto v0.0.0-20180515001509-1a580b3eff78
-	golang.org/x/net v0.0.0-20180511174649-2491c5de3490 // indirect
+	golang.org/x/crypto v0.0.0-20180904163835-0709b304e793
 	golang.org/x/sync v0.0.0-20180314180146-1d60e4601c6f
-	golang.org/x/sys v0.0.0-20180514143608-7c87d13f8e83 // indirect
+	gopkg.in/src-d/go-git.v4 v4.8.1
 )

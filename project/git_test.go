@@ -88,9 +88,9 @@ func TestDownloadMalformedRepo(t *testing.T) {
 func TestDownloadMultipleTimes(t *testing.T) {
 	home := home()
 	repo := project.NewGit(home, "caarlos0/ports")
-	require.NoError(t, repo.Download())
-	require.NoError(t, repo.Download())
-	require.NoError(t, repo.Update())
+	require.NoError(t, repo.Download(), "first download")
+	require.NoError(t, repo.Download(), "second download")
+	require.NoError(t, repo.Update(), "update")
 }
 
 func TestDownloadFolderNaming(t *testing.T) {
